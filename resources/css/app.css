@@ -2,19 +2,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Tempelkan SEMUA CSS dari <style> HTML Anda di sini */
-body {
-    box-sizing: border-box;
-    margin: 0 !important;
-    padding: 0 !important;
-    height: 100%;
-}
-html {
-    height: 100%;
-}
-.stage-badge { ... }
-.card { ... }
-/* ...dan seterusnya sampai @keyframes spin... */
-@keyframes pulse { ... }
-@keyframes spin { ... }

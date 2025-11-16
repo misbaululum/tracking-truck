@@ -6,6 +6,13 @@
     <title>Tracking Bongkar Muat</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+
+    {{-- 👇 TAMBAHKAN BLOK INI UNTUK MENGHILANGKAN GARIS PUTIH --}}
+    <style>
+        body {
+            margin: 0 !important;
+        }
+    </style>
 </head>
 <body class="h-full">
     {{ $slot }} 

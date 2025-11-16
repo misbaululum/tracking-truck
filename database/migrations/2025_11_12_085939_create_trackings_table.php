@@ -24,12 +24,17 @@ return new class extends Migration
             $table->datetime('ttb_end')->nullable();
             $table->string('current_stage');
             $table->timestamps();
+
+            // Optimasi ditambahkan di sini
+            $table->index('plate_number');
+            $table->index('current_stage');
         });
     }
 
     /**
      * Reverse the migrations.
      */
+    // 👇 Ini adalah baris yang diperbaiki (sebelumnya 'publicS')
     public function down(): void
     {
         Schema::dropIfExists('trackings');

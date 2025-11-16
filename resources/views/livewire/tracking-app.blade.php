@@ -16,7 +16,9 @@
                         </div>
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <span style="font-size: 14px; opacity: 0.9;">👤 {{ $user->name }}</span>
-                            <button wire:click="logout" class="btn" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer;">
+                            
+                            {{-- PERUBAHAN 1: (Sudah Benar) --}}
+                            <button wire:click="logout" class="btn" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer;" wire:loading.attr="disabled">
                                 Logout
                             </button>
                         </div>
@@ -33,8 +35,15 @@
                     
                     @if ($user->role === 'admin')
                         <div style="margin-bottom: 16px;">
-                            <button wire:click="exportExcel" class="btn" style="width: 100%; background: #10b981; color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                📥 Export ke Excel (sesuai pencarian)
+                            
+                            {{-- PERUBAHAN 2: (Sudah Benar) --}}
+                            <button wire:click="exportExcel" class="btn" style="width: 100%; background: #10b981; color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" wire:loading.attr="disabled" wire:target="exportExcel">
+                                <span wire:loading.remove wire:target="exportExcel">
+                                    📥 Export ke Excel (sesuai pencarian)
+                                </span>
+                                <span wire:loading wire:target="exportExcel">
+                                    ⏳ Memproses export...
+                                </span>
                             </button>
                         </div>
                         <div style="background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 20px;">
@@ -58,7 +67,9 @@
                                         style="padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 14px;">
                                 </div>
                             </div>
-                            <div style="overflow-x: auto;">
+
+                            {{-- PERUBAHAN 3: (INI YANG DIKOREKSI) --}}
+                            <div style="overflow-x: auto;" wire:loading.style="opacity: 0.5;" wire:target="search, perPage, page">
                                 <table style="width: 100%; min-width: 1200px; border-collapse: collapse; white-space: nowrap;">
                                     <thead style="background: #f3f4f6;">
                                         <tr>
@@ -178,8 +189,15 @@
                                 <input wire:model="login_pin" type="password" required maxlength="4" pattern="[0-9]{4}" placeholder="Masukkan PIN 4 digit" 
                                        style="width: 100%; padding: 14px; border: 2px solid #f3f4f6; border-radius: 8px; font-size: 16px; color: #1f2937; background: white;">
                             </div>
-                            <button type="submit" class="btn" style="width: 100%; background: #2563eb; color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                                🔐 Login
+
+                            {{-- PERUBAHAN 4: (Sudah Benar) --}}
+                            <button type="submit" class="btn" style="width: 100%; background: #2563eb; color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" wire:loading.attr="disabled" wire:target="login">
+                                <span wire:loading.remove wire:target="login">
+                                    🔐 Login
+                                </span>
+                                <span wire:loading wire:target="login">
+                                    ⏳ Memproses...
+                                </span>
                             </button>
                         </form>
                     </div>
@@ -248,8 +266,15 @@
                         @endif
                     </div>
                     <div style="display: flex; gap: 12px; margin-top: 24px;">
-                        <button type="submit" class="btn" style="flex: 1; background: #2563eb; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer;">
-                            Simpan
+
+                        {{-- PERUBAHAN 5: (Sudah Benar) --}}
+                        <button type="submit" class="btn" style="flex: 1; background: #2563eb; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer;" wire:loading.attr="disabled" wire:target="handleSubmit">
+                            <span wire:loading.remove wire:target="handleSubmit">
+                                Simpan
+                            </span>
+                            <span wire:loading wire:target="handleSubmit">
+                                ⏳ Menyimpan...
+                            </span>
                         </button>
                         <button wire:click="closeModal" type="button" class="btn" style="flex: 1; background: #f3f4f6; color: #1f2937; padding: 12px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer;">
                             Batal
