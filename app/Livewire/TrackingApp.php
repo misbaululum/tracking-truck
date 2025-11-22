@@ -62,6 +62,10 @@ class TrackingApp extends Component
     public $dateFrom = null;   // YYYY-MM-DD
     public $dateTo   = null;   // YYYY-MM-DD
 
+    // --- PROPETI UNTUK TOGGLE PASSWORD ---
+    public $showNewPassword = false;
+    public $showNewPasswordConfirm = false;
+
     // opsional: saat user mengganti filter tanggal, reset halaman tabel
     public function updatingDateFrom() { $this->resetPage(); }
     public function updatingDateTo()   { $this->resetPage(); }

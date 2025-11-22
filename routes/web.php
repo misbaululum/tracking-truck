@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Account\ChangePassword;
+use App\Livewire\Admin\Users\ManagePasswords;
 use App\Livewire\TrackingApp;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,11 @@ use Illuminate\Support\Facades\Route;
 // Semua permintaan ke '/' akan ditangani oleh komponen TrackingApp
 Route::get('/', TrackingApp::class);
 Route::get('/input-kendaraan', \App\Livewire\PublicTruckInput::class)->name('public.input');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/account/password', \App\Livewire\Account\ChangePassword::class)
+        ->name('account.password');
+
+    Route::get('/admin/users/passwords', \App\Livewire\Admin\Users\ManagePasswords::class)
+        ->name('admin.users.passwords');
+});

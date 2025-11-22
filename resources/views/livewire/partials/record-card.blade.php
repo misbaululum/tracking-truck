@@ -176,7 +176,7 @@
                 // 2) Proses KELUAR setelah distribusi selesai
                 elseif ($record->current_stage == 'ttb_distributed') {
                     $showButton = true;
-                    $btnText    = 'Proses Keluar';
+                    $btnText    = 'Mobil Keluar';
                     $btnColor   = 'bg-emerald-600 hover:bg-emerald-700';
                 }
 

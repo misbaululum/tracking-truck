@@ -16,7 +16,19 @@
                             <p style="font-size: 14px; margin: 0; opacity: 0.9;">PT CBA Chemical Industry</p>
                         </div>
                         <div style="display: flex; align-items: center; gap: 12px;">
-                            <span style="font-size: 14px; opacity: 0.9;">👤 {{ $user->name }}</span>
+                            <span style="font-size: 14px; opacity: 0.9;">👤 {{ $user->name }}
+                            
+                            @if ($user->role === 'admin')
+                            <a href="{{ route('admin.users.passwords') }}"
+                                style="font-size: 12px; color: #111827; background: #fbbf24; padding: 6px 10px; border-radius: 999px; text-decoration: none; font-weight: 700; border:1px solid #f59e0b;">
+                                Kelola Password
+                            </a>
+                            @endif
+                            
+                            </span>
+
+                    
+
                             <button wire:click="logout" class="btn" style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer;" wire:loading.attr="disabled">
                                 Logout
                             </button>
