@@ -29,7 +29,7 @@
             // 1) Security masuk
             case 'security_in':
                 $statusText  = '⟳ Menunggu Bongkar/Muat';
-                $activeStage = 'Security Masuk';
+                $activeStage = 'Mobil Masuk';
                 $officerName = $record->security_in_officer ?: 'Input Mandiri (Supir)';
                 $startTime   = $record->security_start;
                 break;
@@ -44,7 +44,7 @@
 
             // 3) Bongkar / muat selesai
             case 'loading_ended':
-                $statusText  = '⟳ Menunggu Proses TTB';
+                $statusText  = '⟳ Menunggu Proses TTB'/SJ;
                 $activeStage = 'Selesai Bongkar/Muat';
                 $officerName = $record->loading_end_officer ?: '-';
                 $startTime   = $record->loading_end;
@@ -52,7 +52,7 @@
 
             // 4) TTB dimulai
             case 'ttb_started':
-                $statusText  = '⟳ Sedang Proses TTB';
+                $statusText  = '⟳ Sedang Proses TTB'/SJ;
                 $activeStage = 'Proses TTB';
                 $officerName = $record->ttb_start_officer ?: '-';
                 $startTime   = $record->ttb_start;
@@ -61,7 +61,7 @@
             // 5) TTB selesai, belum distribusi ke supir
             case 'ttb_ended':
                 $statusText  = '⟳ Menunggu Distribusi ke Supir';
-                $activeStage = 'Selesai TTB';
+                $activeStage = 'Selesai TTB/SJ';
                 $officerName = $record->ttb_end_officer ?: '-';
                 $startTime   = $record->ttb_end;
                 break;

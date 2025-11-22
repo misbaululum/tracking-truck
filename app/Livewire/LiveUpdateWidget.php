@@ -1,5 +1,4 @@
 <?php
-// app/Livewire/LiveUpdateWidget.php
 
 namespace App\Livewire;
 
@@ -10,8 +9,15 @@ use Illuminate\Support\Collection;
 class LiveUpdateWidget extends Component
 {
     public Collection $liveRecords;
-    public $liveLimit = 2;
+    public $liveLimit = 3;
     public $liveTotal = 0;
+    public $search = ''; // Variable untuk menampung input search
+
+    // Reset limit ke 3 setiap kali user mengetik search baru
+    public function updatingSearch()
+    {
+        $this->liveLimit = 3;
+    }
 
     public function mount()
     {
@@ -20,30 +26,35 @@ class LiveUpdateWidget extends Component
 
     public function loadDataForLiveUpdate()
     {
-        // 1. Ambil data dengan urutan:
-        //    - "active" dulu (karena 'completed' = 1, 'active' = 0)
-        //    - Lalu urutkan berdasarkan data terbaru
-        $this->liveRecords = Tracking::orderByRaw("CASE WHEN current_stage = 'completed' THEN 1 ELSE 0 END")
-                                    ->latest() // 'latest()' adalah 'created_at DESC'
-                                    ->take($this->liveLimit)
-                                    ->get();
-        
-        // 2. Hitung total data untuk tombol "Muat Lebih Banyak"
-        $this->liveTotal = Tracking::count();
+        $query = Tracking::query();
+
+        // 1. Filter Pencarian (Jika ada input)
+        if (!empty($this->search)) {
+            $query->where(function($q) {
+                $q->where('plate_number', 'like', '%' . $this->search . '%')
+                  ->orWhere('vehicle_name', 'like', '%' . $this->search . '%')
+                  ->orWhere('driver_name', 'like', '%' . $this->search . '%')
+                  ->orWhere('company_name', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        // 2. Hitung total data yang sesuai pencarian (untuk tombol Load More)
+        $this->liveTotal = $query->count();
+
+        // 3. Urutkan (Active dulu, baru Completed, lalu Terbaru) & Limit
+        $this->liveRecords = $query->orderByRaw("CASE WHEN current_stage = 'completed' THEN 1 ELSE 0 END")
+                                   ->latest()
+                                   ->take($this->liveLimit)
+                                   ->get();
     }
 
-    /**
-     * Fungsi baru untuk tombol "Muat Lebih Banyak".
-     */
     public function loadMoreLive()
     {
-        // Tambah 3 data lagi setiap kali diklik
         $this->liveLimit += 3;
     }
 
     public function render()
     {
-        // Panggil fungsi ini di render agar wire:poll berfungsi
         $this->loadDataForLiveUpdate();
         return view('livewire.live-update-widget');
     }

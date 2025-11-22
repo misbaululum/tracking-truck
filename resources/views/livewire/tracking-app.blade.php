@@ -455,9 +455,7 @@
 
                         {{-- Kalau belum pilih type, jangan tampilkan form detail --}}
                         @if (empty($type))
-                            <div style="padding: 12px 16px; background: #fef9c3; border-radius: 8px; border: 1px solid #facc15; font-size: 13px; color: #92400e;">
-                                ⚠ Silakan pilih <strong>Jenis Kegiatan</strong> terlebih dahulu.
-                            </div>
+                           
                         @else
                             {{-- 1. DATA KENDARAAN (Create / Public / Admin) --}}
                             @if (in_array($modalAction, ['create', 'public_create']) || (Auth::check() && Auth::user()->role === 'admin'))
